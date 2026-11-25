@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dorian Wolny | Game Developer Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2316161f'/%3E%3Crect x='2' y='2' width='60' height='60' rx='14' fill='none' stroke='%238b5cf6' stroke-width='4'/%3E%3Ctext x='28' y='45' text-anchor='middle' font-family='system-ui, sans-serif' font-size='36' font-weight='800' fill='%23f4f4f6'%3ED%3C/text%3E%3Ccircle cx='48' cy='41' r='5' fill='%238b5cf6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a href="#hero" class="logo">Dorian<span class="accent-dot">.</span></a>
+      <div class="nav-right">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
+          <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+          <li><a href="#games" data-i18n="nav.games">Games</a></li>
+          <li><a href="#certifications" data-i18n="nav.certifications">Certifications</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+        <div class="lang-switcher" role="group" aria-label="Language switcher">
+          <button type="button" class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+          <span class="lang-divider" aria-hidden="true">/</span>
+          <button type="button" class="lang-btn" data-lang="pl" aria-pressed="false">PL</button>
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="scroll-progress" id="scrollProgress"></div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero section">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <canvas class="hero-particles" id="heroParticles" aria-hidden="true"></canvas>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container hero-container">
+        <div class="hero-layout">
+          <div class="hero-content">
+            <p class="section-index hero-animate hero-delay-1" data-i18n="hero.index">01 / PORTFOLIO</p>
+            <h1 class="hero-animate hero-delay-2">Dorian Wolny<span class="accent-dot">.</span></h1>
+            <p class="hero-description hero-animate hero-delay-3" data-i18n-html="hero.description">
+              I'm an indie game developer working in <strong>Unity</strong> with <strong>C#</strong>. I'm passionate about gameplay programming, <strong>ScriptableObjects</strong> architecture, and technology.
+            </p>
+            <div class="hero-actions hero-animate hero-delay-4">
+              <a href="#games" class="btn btn-primary" data-i18n="hero.ctaGames">View My Games &rarr;</a>
+              <a href="#contact" class="btn btn-secondary" data-i18n="hero.ctaContact">Get in Touch</a>
+            </div>
+          </div>
+
+          <aside class="inspector-wrapper hero-animate hero-delay-3" aria-label="Unity Inspector Developer Profile">
+            <div class="inspector-card" data-tilt data-tilt-max="6">
+              <div class="inspector-header">
+                <div class="inspector-title-group">
+                  <span class="inspector-arrow" aria-hidden="true">&#9662;</span>
+                  <span class="inspector-cs-badge" aria-hidden="true">C#</span>
+                  <span class="inspector-title">DeveloperProfile (Script)</span>
+                </div>
+                <label class="inspector-toggle" title="Toggle availability status">
+                  <input type="checkbox" id="inspectorActiveToggle" checked>
+                  <span class="inspector-checkbox" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <div class="inspector-body" id="inspectorBody">
+                <div class="inspector-row">
+                  <span class="inspector-label" data-i18n="inspector.script">Script</span>
+                  <span class="inspector-asset-field">DeveloperProfile.cs</span>
+                </div>
+                <div class="inspector-row">
+                  <span class="inspector-label" data-i18n="inspector.engine">Engine</span>
+                  <span class="inspector-value">Unity (2D / 3D)</span>
+                </div>
+                <div class="inspector-row">
+                  <span class="inspector-label" data-i18n="inspector.language">Language</span>
+                  <span class="inspector-value">C#</span>
+                </div>
+                <div class="inspector-row">
+                  <span class="inspector-label" data-i18n="inspector.focus">Focus</span>
+                  <span class="inspector-value" data-i18n="inspector.focusValue">ScriptableObjects &amp; Systems</span>
+                </div>
+                <div class="inspector-row">
+                  <span class="inspector-label" data-i18n="inspector.experience">Experience</span>
+                  <span class="inspector-value inspector-number" data-i18n="inspector.experienceValue">8 yrs</span>
+                </div>
+                <div class="inspector-row">
+                  <span class="inspector-label" data-i18n="inspector.shipped">Shipped &amp; WIP</span>
+                  <span class="inspector-value inspector-accent" data-i18n="inspector.shippedValue">4 Games</span>
+                </div>
+                <div class="inspector-row">
+                  <span class="inspector-label" data-i18n="inspector.status">Status</span>
+                  <span class="inspector-status" id="inspectorStatus">
+                    <span class="status-dot"></span>
+                    <span id="inspectorStatusText">Ready to Build</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section section-alt">
+      <div class="container" data-reveal>
+        <p class="section-index" data-i18n="about.index">02 / ABOUT</p>
+        <h2 data-i18n-html="about.heading">About Me<span class="accent-dot">.</span></h2>
+        <p class="section-text" data-i18n="about.text">
+          I am a Game Development student who has been creating games on and off for around eight years. What drives me most in programming is seeing complex systems come together and actually work on screen. I particularly enjoy working with numbers, game balance, and modular data-driven architectures built around Unity's ScriptableObjects.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <p class="section-index" data-reveal data-i18n="skills.index">03 / TOOLKIT &amp; SKILLS</p>
+        <div class="skills-split">
+          <div class="skills-column">
+            <h2 data-reveal data-i18n-html="skills.toolsHeading">Software &amp; Tools<span class="accent-dot">.</span></h2>
+            <div class="tools-grid" data-reveal-stagger>
+              <div class="tool-item" data-reveal>
+                <span class="tool-icon tool-unity" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.9 10.6L17.4 3.5l-7.1 2L9.2 7.4H7L2 12l5 4.6h2.2l1.1 1.9 7.1 2 2.5-7.1-1.1-1.4 1.1-1.4zm-3.6-4.7l1.5 4.8-3.8-1-2.5-2.6 4.8-1.2zM5.2 12l2.7-2.6h3.5L14 12l-2.6 2.6H7.9L5.2 12zm11.1 6.1l-4.8-1.2 2.5-2.6 3.8-1-1.5 4.8z"/>
+                  </svg>
+                </span>
+                <span>Unity</span>
+              </div>
+
+              <div class="tool-item" data-reveal>
+                <span class="tool-icon tool-csharp" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <text x="12" y="16" text-anchor="middle" font-size="11" font-weight="700" font-family="Inter, system-ui, sans-serif">C#</text>
+                  </svg>
+                </span>
+                <span>C#</span>
+              </div>
+
+              <div class="tool-item" data-reveal>
+                <span class="tool-icon tool-vs" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.5 3L9.8 10.1 5.2 6.6 3 7.7v8.6l2.2 1.1 4.6-3.5L17.5 21l3.5-1.7V4.7L17.5 3zm0 4.3v9.4L12.1 12l5.4-4.7z"/>
+                  </svg>
+                </span>
+                <span>Visual Studio</span>
+              </div>
+
+              <div class="tool-item" data-reveal>
+                <span class="tool-icon tool-fmod" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <text x="12" y="15" text-anchor="middle" font-size="7.5" font-weight="700" font-family="Inter, system-ui, sans-serif">fmod</text>
+                  </svg>
+                </span>
+                <span>FMOD</span>
+              </div>
+
+              <div class="tool-item" data-reveal>
+                <span class="tool-icon tool-github" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.8-2.3 4.6-4.6 4.9.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 22 12c0-5.5-4.5-10-10-10z"/>
+                  </svg>
+                </span>
+                <span>GitHub</span>
+              </div>
+
+              <div class="tool-item" data-reveal>
+                <span class="tool-icon tool-gitkraken" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 3.5a5.5 5.5 0 0 0-5.5 5.5c0 2.5 1.6 4.5 3.8 5.2h3.4c2.2-.7 3.8-2.7 3.8-5.2A5.5 5.5 0 0 0 12 3.5zm-1.8 6.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm3.6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    <path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" d="M8.2 12.5C5.5 13.2 3.8 15.3 4.8 17.2c.5.9 1.7.5 1.4-.4M10.4 13.5c-.7 2.2-1.8 4.2-.6 5.7.6.8 1.8.2 1.3-.7M13.6 13.5c.7 2.2 1.8 4.2.6 5.7-.6.8-1.8.2-1.3-.7M15.8 12.5c2.7.7 4.4 2.8 3.4 4.7-.5.9-1.7.5-1.4-.4"/>
+                  </svg>
+                </span>
+                <span>GitKraken</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-column">
+            <h2 data-reveal data-i18n-html="skills.skillsHeading">Skills<span class="accent-dot">.</span></h2>
+            <div class="competencies-grid" data-reveal-stagger>
+              <div class="competency-item" data-reveal>
+                <span class="competency-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="6" width="20" height="12" rx="4"/>
+                    <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/>
+                  </svg>
+                </span>
+                <span data-i18n="skills.gameplay">Gameplay &amp; Combat Systems</span>
+              </div>
+
+              <div class="competency-item" data-reveal>
+                <span class="competency-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                    <polyline points="2 17 12 22 22 17"/>
+                    <polyline points="2 12 12 17 22 12"/>
+                  </svg>
+                </span>
+                <span data-i18n="skills.solid">SOLID Principles &amp; Clean Architecture</span>
+              </div>
+
+              <div class="competency-item" data-reveal>
+                <span class="competency-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                  </svg>
+                </span>
+                <span data-i18n="skills.so">ScriptableObjects &amp; Data-Driven Design</span>
+              </div>
+
+              <div class="competency-item" data-reveal>
+                <span class="competency-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"/>
+                    <circle cx="6" cy="12" r="3"/>
+                    <circle cx="18" cy="19" r="3"/>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                  </svg>
+                </span>
+                <span data-i18n="skills.ai">AI &amp; Autonomous Unit Behaviors</span>
+              </div>
+
+              <div class="competency-item" data-reveal>
+                <span class="competency-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14"/>
+                    <line x1="4" y1="10" x2="4" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12" y2="3"/>
+                    <line x1="20" y1="21" x2="20" y2="16"/>
+                    <line x1="20" y1="12" x2="20" y2="3"/>
+                    <line x1="1" y1="14" x2="7" y2="14"/>
+                    <line x1="9" y1="8" x2="15" y2="8"/>
+                    <line x1="17" y1="16" x2="23" y2="16"/>
+                  </svg>
+                </span>
+                <span data-i18n="skills.balance">Game Balance &amp; Numerical Systems</span>
+              </div>
+
+              <div class="competency-item" data-reveal>
+                <span class="competency-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </span>
+                <span data-i18n="skills.ui">Dialogue, Event &amp; UI Frameworks</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="games" class="section section-alt">
+      <div class="container">
+        <p class="section-index" data-reveal data-i18n="games.index">04 / FEATURED WORK</p>
+        <h2 data-reveal data-i18n-html="games.heading">Featured Games<span class="accent-dot">.</span></h2>
+        <div class="games-grid" data-reveal-stagger>
+
+          <article class="game-card" data-reveal data-tilt data-tilt-max="4">
+            <div class="game-media">
+              <div class="game-thumbnail">
+                <img src="Images/Rustcravethumbnail.png" alt="Rustcrave screenshot" class="main-preview" data-lightbox>
+              </div>
+              <div class="thumbnail-strip">
+                <button type="button" class="thumb-btn active" data-src="Images/Rustcravethumbnail.png" aria-label="Rustcrave view 1">
+                  <img src="Images/Rustcravethumbnail.png" alt="Rustcrave thumbnail 1">
+                </button>
+                <button type="button" class="thumb-btn" data-src="Images/Rustcravesecondimage.png" aria-label="Rustcrave view 2">
+                  <img src="Images/Rustcravesecondimage.png" alt="Rustcrave thumbnail 2">
+                </button>
+                <button type="button" class="thumb-btn" data-src="Images/Rustcravethirdimage.png" aria-label="Rustcrave view 3">
+                  <img src="Images/Rustcravethirdimage.png" alt="Rustcrave thumbnail 3">
+                </button>
+              </div>
+            </div>
+            <div class="game-content">
+              <div class="game-tags">
+                <span>Unity</span>
+                <span>C#</span>
+                <span>3D</span>
+                <span>Roguelite / RTS</span>
+              </div>
+              <h3>Rustcrave</h3>
+              <p class="game-desc" data-i18n="games.rustcrave.desc">
+                A dark, steampunk side-scrolling roguelite with RTS elements that brutally flips the classic perspective—you are the invader, not the savior. As the Empty Conductor, you command a swarm of mechanized insects invading the dying planet Aion to rip out its Power Core.
+              </p>
+              <p class="game-role" data-i18n-html="games.rustcrave.role">
+                <strong>My Role:</strong> Programmed swarm control mechanics, autonomous unit behaviors, and the core interaction system.
+              </p>
+              <div class="game-links">
+                <a href="https://trispect-interactive.itch.io/rustcrave" target="_blank" rel="noopener" data-i18n="games.playItch">Play on Itch.io &nearr;</a>
+                <a href="https://www.youtube.com/watch?v=dvFl4ehFmzQ" target="_blank" rel="noopener" data-i18n="games.watchGameplay">Watch Gameplay &nearr;</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-reveal data-tilt data-tilt-max="4">
+            <div class="game-media">
+              <div class="game-thumbnail">
+                <img src="Images/ShellRaiserthumbnail.png" alt="ShellRaiser screenshot" class="main-preview" data-lightbox>
+              </div>
+              <div class="thumbnail-strip">
+                <button type="button" class="thumb-btn active" data-src="Images/ShellRaiserthumbnail.png" aria-label="ShellRaiser view 1">
+                  <img src="Images/ShellRaiserthumbnail.png" alt="ShellRaiser thumbnail 1">
+                </button>
+                <button type="button" class="thumb-btn" data-src="Images/ShellRaisersecondimage.png" aria-label="ShellRaiser view 2">
+                  <img src="Images/ShellRaisersecondimage.png" alt="ShellRaiser thumbnail 2">
+                </button>
+                <button type="button" class="thumb-btn" data-src="Images/ShellRaiserthirdimage.png" aria-label="ShellRaiser view 3">
+                  <img src="Images/ShellRaiserthirdimage.png" alt="ShellRaiser thumbnail 3">
+                </button>
+              </div>
+            </div>
+            <div class="game-content">
+              <div class="game-tags">
+                <span>Unity</span>
+                <span>C#</span>
+                <span>3D</span>
+                <span data-i18n="games.shellraiser.tagStrategy">Strategy</span>
+              </div>
+              <h3>ShellRaiser</h3>
+              <p class="game-desc" data-i18n="games.shellraiser.desc">
+                Join the battle between Shellraiser, a young necromancer snail, and Crab King Clawford V, ruler of all beaches. Command your army of snails to destroy the Crab King's mighty Sandcastle and settle an old score.
+              </p>
+              <p class="game-role" data-i18n-html="games.shellraiser.role">
+                <strong>My Role:</strong> Sole programmer on the project—built the entire codebase from scratch, including the combat system and unit management.
+              </p>
+              <div class="game-links">
+                <a href="https://dorians.itch.io/shellraiser" target="_blank" rel="noopener" data-i18n="games.playItch">Play on Itch.io &nearr;</a>
+                <a href="https://github.com/Doriansik/ShellraiserRepository" target="_blank" rel="noopener" data-i18n="games.githubCode">GitHub Code &nearr;</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-reveal data-tilt data-tilt-max="4">
+            <div class="game-media">
+              <div class="game-thumbnail">
+                <img src="Images/NoShitthumbnail.jpg" alt="No-Shit screenshot" class="main-preview" data-lightbox>
+              </div>
+            </div>
+            <div class="game-content">
+              <div class="game-tags">
+                <span>Unity</span>
+                <span>C#</span>
+                <span>3D</span>
+                <span data-i18n="games.noshit.tagComedy">Comedy / Minigames</span>
+              </div>
+              <h3>No-Shit</h3>
+              <p class="game-desc" data-i18n-html="games.noshit.desc">
+                Created by 3 Pieczarki's and inspired by Stanisław Lem's <em>The Cyberiad</em>. Systematically repair a chaotic bathroom while waiting for the plumber—where fixing one malfunction inevitably triggers a chain reaction that breaks something else.
+              </p>
+              <p class="game-role" data-i18n-html="games.noshit.role">
+                <strong>My Role:</strong> Designed and programmed one of the core interactive repair minigames.
+              </p>
+              <div class="game-links">
+                <a href="https://3pieczarkis.itch.io/no-shit" target="_blank" rel="noopener" data-i18n="games.playItch">Play on Itch.io &nearr;</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-reveal data-tilt data-tilt-max="4">
+            <div class="game-media">
+              <div class="game-thumbnail">
+                <img src="Images/Dziadycz1thumbnail.png" alt="Dziady cz. 1 screenshot" class="main-preview" data-lightbox>
+              </div>
+              <div class="thumbnail-strip">
+                <button type="button" class="thumb-btn active" data-src="Images/Dziadycz1thumbnail.png" aria-label="Dziady cz. 1 view 1">
+                  <img src="Images/Dziadycz1thumbnail.png" alt="Dziady cz. 1 thumbnail 1">
+                </button>
+                <button type="button" class="thumb-btn" data-src="Images/Dziadycz1secondimage.jpg" aria-label="Dziady cz. 1 view 2">
+                  <img src="Images/Dziadycz1secondimage.jpg" alt="Dziady cz. 1 thumbnail 2">
+                </button>
+              </div>
+            </div>
+            <div class="game-content">
+              <div class="game-tags">
+                <span>Unity</span>
+                <span>C#</span>
+                <span>2D</span>
+                <span>Deckbuilder</span>
+                <span data-i18n="games.dziady.tagDev">In Development</span>
+              </div>
+              <h3>Dziady cz. 1</h3>
+              <p class="game-desc" data-i18n-html="games.dziady.desc">
+                A 2D deckbuilding roguelite inspired by Slavic folklore and the <em>Dziady</em> ritual. Playing as the Guślarz, you summon spirits like a young girl seeking the bitterness she never experienced in life, traversing a map of Slavic demons, witches, healers, and narrative encounters before confronting an overprotective mother boss.
+              </p>
+              <p class="game-role" data-i18n-html="games.dziady.role">
+                <strong>My Role:</strong> Architected the card and deck system, dialogue and event framework, combat encounters (standard, elite, and boss), and in-game battle UI.
+              </p>
+              <div class="game-links">
+                <a href="https://github.com/Doriansik/Dziadowski-Licencjat" target="_blank" rel="noopener" data-i18n="games.githubCode">GitHub Code &nearr;</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="section">
+      <div class="container">
+        <p class="section-index" data-reveal data-i18n="certs.index">05 / CERTIFICATIONS</p>
+        <h2 data-reveal data-i18n-html="certs.heading">Certifications<span class="accent-dot">.</span></h2>
+        <div class="certs-grid" data-reveal-stagger>
+
+          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="cyberiadaPart">
+            <div class="cert-preview">
+              <img src="Images/Dorian Wolny - 3Pieczarki's.png" data-fallback-exts="jpg,jpeg,webp" alt="Cyberiada Participation Certificate" data-lightbox>
+            </div>
+            <div class="cert-body">
+              <div class="cert-meta">
+                <span class="cert-issuer">Fundacja TEATRIKON</span>
+                <span class="cert-year">2026</span>
+              </div>
+              <h3 data-i18n="certs.cyberiadaPart">Cyberiada &mdash; Participation Certificate</h3>
+              <div class="cert-translation">
+                <span class="cert-translation-badge">EN TRANSLATION</span>
+                <div class="cert-translation-text" data-i18n-html="certs.cyberiadaPartTranscript">
+                  <p>This document certifies that <strong>Dorian Wolny</strong> participated in the competition and specialized video game development training, as well as the finals of the National Computer Game Design Championships <strong>&ldquo;Cyberiada&rdquo;</strong>, organized by the &ldquo;Teatrikon&rdquo; Foundation for Creativity, Education and Animation of Youth under the IT Talent Development Program for 2019&ndash;2029, funded by the state budget.</p>
+                  <p>40 teams from across Poland qualified for the project, tasked with creating a prototype of an original game.</p>
+                  <p><strong>Team:</strong> 3Pieczarki's &middot; <strong>Track:</strong> Game Development &middot; <strong>Classification:</strong> Winner &middot; <strong>Score:</strong> 1st place &ndash; 858.8 pts</p>
+                  <p class="cert-translation-meta">Lublin, July 11, 2026</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="cyberiadaWin">
+            <div class="cert-preview">
+              <img src="Images/Zwyciezca - 3Pieczarki's.png" data-fallback-exts="jpg,jpeg,webp" alt="Cyberiada Winner Certificate" data-lightbox>
+            </div>
+            <div class="cert-body">
+              <div class="cert-meta">
+                <span class="cert-issuer">Fundacja TEATRIKON</span>
+                <span class="cert-year">2026</span>
+              </div>
+              <h3 data-i18n="certs.cyberiadaWin">Cyberiada &mdash; Winner Certificate</h3>
+              <div class="cert-translation">
+                <span class="cert-translation-badge">EN TRANSLATION</span>
+                <div class="cert-translation-text" data-i18n-html="certs.cyberiadaWinTranscript">
+                  <p><strong>Winner &mdash; Baza Kraśnali &bull; 3Pieczarki's (Game: Rustcrave)</strong></p>
+                  <p>This document certifies the team's participation in the competition and specialized video game development training, as well as the finals of the National Computer Game Design Championships <strong>&ldquo;Cyberiada&rdquo;</strong>, organized by the &ldquo;Teatrikon&rdquo; Foundation for Creativity, Education and Animation of Youth under the IT Talent Development Program for 2019&ndash;2029, funded by the state budget.</p>
+                  <p><strong>National Ranking:</strong> 1st place &middot; <strong>Score:</strong> 858.8 pts &middot; <strong>Base Ranking:</strong> 1st place</p>
+                  <p><strong>Dorian Wolny's Role:</strong> Game Development (10-person team: Project Management, Game Design, Game Development, Experience Design, Quality Assurance)</p>
+                  <p class="cert-translation-meta">Lublin, July 11, 2026</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="cdvFront">
+            <div class="cert-preview">
+              <img src="Images/CertyfikatAkceleratorprzod.png" data-fallback-exts="jpg,jpeg,webp" alt="CDV Accelerator Certificate Front" data-lightbox>
+            </div>
+            <div class="cert-body">
+              <div class="cert-meta">
+                <span class="cert-issuer">Collegium Da Vinci</span>
+                <span class="cert-year">2025</span>
+              </div>
+              <h3 data-i18n="certs.cdvFront">CDV Accelerator Certificate (Front)</h3>
+              <div class="cert-translation">
+                <span class="cert-translation-badge">EN TRANSLATION</span>
+                <div class="cert-translation-text" data-i18n-html="certs.cdvFrontTranscript">
+                  <p><strong>Certificate:</strong> <strong>Dorian Wolny</strong> completed the acceleration program <strong>CDV Accelerator</strong>, organized from May 15 to June 30, 2025.</p>
+                  <p class="cert-translation-meta">Organizer: Collegium Da Vinci (CDV)</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="cdvBack">
+            <div class="cert-preview">
+              <img src="Images/CertyfikatAkceleratotyl.png" data-fallback-exts="jpg,jpeg,webp" alt="CDV Accelerator Certificate Back" data-lightbox>
+            </div>
+            <div class="cert-body">
+              <div class="cert-meta">
+                <span class="cert-issuer">Collegium Da Vinci</span>
+                <span class="cert-year">2025</span>
+              </div>
+              <h3 data-i18n="certs.cdvBack">CDV Accelerator Certificate (Back)</h3>
+              <div class="cert-translation">
+                <span class="cert-translation-badge">EN TRANSLATION</span>
+                <div class="cert-translation-text" data-i18n-html="certs.cdvBackTranscript">
+                  <p><strong>Program (24 hours):</strong></p>
+                  <ul>
+                    <li>Fundamentals of startup organization</li>
+                    <li>Business Model Canvas</li>
+                    <li>Game improvements in terms of design</li>
+                    <li>Business relations</li>
+                    <li>Intellectual property</li>
+                    <li>Game improvements in terms of technical and production aspects</li>
+                    <li>Startup financing</li>
+                    <li>Product and service design</li>
+                    <li>Technological leverage</li>
+                    <li>Game improvements in terms of graphics</li>
+                    <li>Team Building</li>
+                    <li>Marketing and brand building</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="profilLingua">
+            <div class="cert-preview">
+              <img src="Images/CertyfikatAngielski.png" data-fallback-exts="jpg,jpeg,webp" alt="ProfiLingua Language Certificate" data-lightbox>
+            </div>
+            <div class="cert-body">
+              <div class="cert-meta">
+                <span class="cert-issuer">ProfiLingua</span>
+                <span class="cert-year">2026</span>
+              </div>
+              <h3 data-i18n="certs.profilLingua">ProfiLingua Language Certificate</h3>
+              <div class="cert-translation">
+                <span class="cert-translation-badge">EN TRANSLATION</span>
+                <div class="cert-translation-text" data-i18n-html="certs.profilLinguaTranscript">
+                  <p><strong>Certificate</strong> awarded to <strong>Dorian Wolny</strong> for completing the course: <strong>English language course at B2 level</strong>, completed in the scope of <strong>120 hours</strong> and finished with a grade of <strong>5.5</strong>.</p>
+                  <p class="cert-translation-meta">Academic year: 2025&ndash;2026 &middot; Methodologist: Justyna Martin &middot; ProfiLingua (Tutore Group)</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-alt">
+      <div class="container" data-reveal>
+        <p class="section-index" data-i18n="contact.index">06 / CONTACT</p>
+        <h2 data-i18n-html="contact.heading">Let's work together<span class="accent-dot">.</span></h2>
+        <p class="section-text" data-i18n="contact.text">
+          Want to talk about Unity, game mechanics, or potential collaboration? Feel free to reach out.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:dorianmarekwolny@wp.pl" class="btn btn-primary">dorianmarekwolny@wp.pl &rarr;</a>
+          <button type="button" class="btn btn-secondary btn-copy" id="copyEmailBtn" data-email="dorianmarekwolny@wp.pl">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copyEmailLabel" data-i18n="contact.copyDefault">Copy Email</span>
+          </button>
+          <a href="https://github.com/Doriansik" target="_blank" rel="noopener" class="btn btn-secondary">GitHub &nearr;</a>
+          <a href="https://dorians.itch.io" target="_blank" rel="noopener" class="btn btn-secondary">Itch.io &nearr;</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Dorian Wolny &nbsp;&middot;&nbsp; <span data-i18n="footer.role">Game Developer</span> &nbsp;&middot;&nbsp; 2026</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toastNotification" role="status" aria-live="polite">
+    <span class="toast-icon" aria-hidden="true">&#10003;</span>
+    <span data-i18n="contact.toast">Email copied to clipboard</span>
+  </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
+    <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#10094;</button>
+    <div class="lightbox-stage">
+      <img src="" alt="Expanded preview" id="lightboxImage">
+      <div class="lightbox-caption" id="lightboxCaption">
+        <span id="lightboxTitle"></span>
+        <span class="lightbox-counter" id="lightboxCounter"></span>
+      </div>
+      <div class="lightbox-translation hidden" id="lightboxTranslation">
+        <div class="lightbox-translation-header">
+          <span class="cert-translation-badge">EN TRANSLATION</span>
+          <strong id="lightboxTranslationTitle"></strong>
+        </div>
+        <div class="cert-translation-text" id="lightboxTranslationBody"></div>
+      </div>
+    </div>
+    <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">&#10095;</button>
+  </div>
+
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
