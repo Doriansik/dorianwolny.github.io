@@ -780,6 +780,10 @@ function initCopyEmail() {
   });
 }
 
+function isImageBroken(imgElement) {
+  return imgElement.complete && imgElement.naturalWidth === MIN_RATIO;
+}
+
 function tryNextImageExtension(imgElement, extensions) {
   const currentIndex = Number(imgElement.dataset.fallbackIndex ?? FIRST_INDEX);
   if (currentIndex >= extensions.length) {
@@ -809,6 +813,10 @@ function initImageFallback() {
     }
 
     img.addEventListener("error", () => tryNextImageExtension(img, extensions));
+
+    if (isImageBroken(img)) {
+      tryNextImageExtension(img, extensions);
+    }
   });
 }
 
