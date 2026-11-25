@@ -1,5 +1,6 @@
 const ACTIVE_CLASS = "active";
 const HIDDEN_CLASS = "hidden";
+const VIDEO_ACTIVE_CLASS = "video-active";
 const HAS_TRANSLATION_CLASS = "has-translation";
 const REVEALED_CLASS = "revealed";
 const SWITCHING_CLASS = "switching";
@@ -15,6 +16,9 @@ const ESCAPE_KEY = "Escape";
 const ARROW_LEFT_KEY = "ArrowLeft";
 const ARROW_RIGHT_KEY = "ArrowRight";
 
+const MEDIA_TYPE_IMAGE = "image";
+const MEDIA_TYPE_VIDEO = "video";
+
 const DEFAULT_LANG = "en";
 const STORAGE_LANG_KEY = "portfolio_lang";
 
@@ -24,6 +28,7 @@ const MIN_GALLERY_COUNT = 2;
 const NOT_FOUND_INDEX = -1;
 const MIN_RATIO = 0;
 const MAX_RATIO = 1;
+const ZERO_TIME = 0;
 const DEFAULT_DPR = 1;
 const CENTER_OFFSET_PERCENT = -50;
 const FIXED_DECIMALS = 2;
@@ -45,11 +50,12 @@ const DOUBLE_FACTOR = 2;
 
 const CURSOR_LERP_FACTOR = 0.18;
 const OFFSCREEN_COORD = -100;
-const INTERACTIVE_SELECTOR = "a, button, label, input, .thumb-btn";
-const ZOOM_SELECTOR = "[data-lightbox]";
+const INTERACTIVE_SELECTOR = "a, button, label, input, .thumb-btn, .video-lightbox-btn, .cert-card";
+const ZOOM_SELECTOR = "[data-lightbox], .cert-card";
 const GAME_CARD_SELECTOR = "#games .game-card";
 const CERT_CARD_SELECTOR = "#certifications .cert-card";
 const CERT_TAB_SELECTOR = ".cert-tab-btn";
+const VIDEO_EXPAND_SELECTOR = ".video-lightbox-btn";
 
 const PARTICLE_COUNT = 38;
 const PARTICLE_MIN_RADIUS = 1.1;
@@ -108,7 +114,7 @@ const TRANSLATIONS = {
     "games.index": "04 / FEATURED WORK",
     "games.heading": "Games I've built<span class=\"accent-dot\">.</span>",
     "games.playItch": "Play on Itch.io \u2197",
-    "games.watchGameplay": "Watch Gameplay \u2197",
+    "games.watchTrailer": "Watch Trailer \u2197",
     "games.githubCode": "GitHub Code \u2197",
     "games.rustcrave.desc": "A dark, steampunk side-scrolling roguelite with RTS elements that brutally flips the classic perspective\u2014you are the invader, not the savior. As the Empty Conductor, you command a swarm of mechanized insects invading the dying planet Aion to rip out its Power Core.",
     "games.rustcrave.role": "<strong>My Role:</strong> Programmed swarm control mechanics, autonomous unit behaviors, and the core interaction system.",
@@ -184,7 +190,7 @@ const TRANSLATIONS = {
     "games.index": "04 / WYBRANE PROJEKTY",
     "games.heading": "Gry, kt\u00f3re stworzy\u0142em<span class=\"accent-dot\">.</span>",
     "games.playItch": "Zagraj na Itch.io \u2197",
-    "games.watchGameplay": "Zobacz rozgrywk\u0119 \u2197",
+    "games.watchTrailer": "Zobacz zwiastun \u2197",
     "games.githubCode": "Kod na GitHubie \u2197",
     "games.rustcrave.desc": "Mroczny, steampunkowy roguelite typu side-scroller z elementami RTS, kt\u00f3ry odwraca klasyczn\u0105 perspektyw\u0119 \u2014 to Ty jeste\u015b naje\u017ad\u017ac\u0105, a nie wybawc\u0105. Jako Pusty Dyrygent dowodzisz rojem zmechanizowanych insekt\u00f3w naje\u017cd\u017caj\u0105cych umieraj\u0105c\u0105 planet\u0119 Aion, aby wyrwa\u0107 jej Rdze\u0144 Mocy.",
     "games.rustcrave.role": "<strong>Moja rola:</strong> Zaprogramowanie mechaniki kontroli roju, autonomicznych zachowa\u0144 jednostek oraz g\u0142\u00f3wnego systemu interakcji.",
@@ -328,6 +334,7 @@ function initLanguageSwitcher() {
   currentLanguage = readSavedLanguage();
   applyStaticTranslations();
   updateLanguageSwitcherButtons(langButtons);
+  syncDynamicTranslatedElements();
 
   langButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -474,6 +481,11 @@ function initScrollReveal() {
 }
 
 function handleTiltMove(event, element, maxTiltDeg) {
+  if (element.classList.contains(VIDEO_ACTIVE_CLASS)) {
+    element.style.transform = `translateY(${TILT_HOVER_LIFT_PX}px)`;
+    return;
+  }
+
   const bounds = element.getBoundingClientRect();
   const pointerX = event.clientX - bounds.left;
   const pointerY = event.clientY - bounds.top;
@@ -831,6 +843,15 @@ function initImageFallback() {
   });
 }
 
+function pauseAndResetVideo(videoElement) {
+  if (!videoElement) {
+    return;
+  }
+
+  videoElement.pause();
+  videoElement.currentTime = ZERO_TIME;
+}
+
 function swapPreviewImage(mainImage, newSource) {
   mainImage.classList.add(SWITCHING_CLASS);
 
@@ -841,19 +862,74 @@ function swapPreviewImage(mainImage, newSource) {
   }, IMAGE_FADE_MS);
 }
 
+function showCardImagePreview(cardElement, newSource) {
+  const mainImage = cardElement.querySelector(".main-preview");
+  const mainVideo = cardElement.querySelector(".main-video-preview");
+  const expandButton = cardElement.querySelector(VIDEO_EXPAND_SELECTOR);
+
+  cardElement.classList.remove(VIDEO_ACTIVE_CLASS);
+
+  if (mainVideo) {
+    pauseAndResetVideo(mainVideo);
+    mainVideo.classList.add(HIDDEN_CLASS);
+  }
+
+  if (expandButton) {
+    expandButton.classList.add(HIDDEN_CLASS);
+  }
+
+  if (mainImage) {
+    mainImage.classList.remove(HIDDEN_CLASS);
+    swapPreviewImage(mainImage, newSource);
+  }
+}
+
+function showCardVideoPreview(cardElement, newSource, posterSource) {
+  const mainImage = cardElement.querySelector(".main-preview");
+  const mainVideo = cardElement.querySelector(".main-video-preview");
+  const expandButton = cardElement.querySelector(VIDEO_EXPAND_SELECTOR);
+
+  if (!mainVideo) {
+    return;
+  }
+
+  cardElement.classList.add(VIDEO_ACTIVE_CLASS);
+  cardElement.style.transform = "";
+
+  if (mainImage) {
+    mainImage.classList.add(HIDDEN_CLASS);
+  }
+
+  pauseAndResetVideo(mainVideo);
+  if (posterSource) {
+    mainVideo.poster = posterSource;
+  }
+  mainVideo.src = newSource;
+  mainVideo.load();
+  mainVideo.classList.remove(HIDDEN_CLASS);
+
+  if (expandButton) {
+    expandButton.classList.remove(HIDDEN_CLASS);
+  }
+}
+
 function handleThumbnailClick(button, cardElement) {
   if (button.classList.contains(ACTIVE_CLASS)) {
     return;
   }
 
-  const mainImage = cardElement.querySelector(".main-preview");
   const newSource = button.getAttribute("data-src");
-
-  if (!mainImage || !newSource) {
+  if (!newSource) {
     return;
   }
 
-  swapPreviewImage(mainImage, newSource);
+  const mediaType = button.getAttribute("data-media-type") || MEDIA_TYPE_IMAGE;
+  if (mediaType === MEDIA_TYPE_VIDEO) {
+    const posterSource = button.getAttribute("data-poster") || "";
+    showCardVideoPreview(cardElement, newSource, posterSource);
+  } else {
+    showCardImagePreview(cardElement, newSource);
+  }
 
   cardElement.querySelectorAll(".thumb-btn").forEach((btn) => {
     btn.classList.remove(ACTIVE_CLASS);
@@ -875,18 +951,11 @@ function initGallerySwitchers() {
 
 function updateCertificateCardContent(cardElement, slideKey) {
   const titleKey = `certs.${slideKey}`;
-  const transcriptKey = `certs.${slideKey}Transcript`;
   const titleElement = cardElement.querySelector(".cert-title");
-  const transcriptElement = cardElement.querySelector(".cert-translation-text");
 
   if (titleElement) {
     titleElement.setAttribute("data-i18n", titleKey);
     titleElement.textContent = getTranslatedText(titleKey);
-  }
-
-  if (transcriptElement) {
-    transcriptElement.setAttribute("data-i18n-html", transcriptKey);
-    transcriptElement.innerHTML = getTranslatedText(transcriptKey);
   }
 }
 
@@ -927,7 +996,10 @@ function initCertificateSwitchers() {
   certCards.forEach((card) => {
     const tabButtons = card.querySelectorAll(CERT_TAB_SELECTOR);
     tabButtons.forEach((button) => {
-      button.addEventListener("click", () => handleCertificateTabClick(button, card));
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        handleCertificateTabClick(button, card);
+      });
     });
   });
 }
@@ -942,9 +1014,14 @@ function collectCardGalleryItems(card) {
     thumbButtons.forEach((button) => {
       const src = button.getAttribute("data-src");
       const thumbImg = button.querySelector("img");
+      const mediaType = button.getAttribute("data-media-type") || MEDIA_TYPE_IMAGE;
+      const poster = button.getAttribute("data-poster") || "";
+
       if (src) {
         items.push({
+          type: mediaType,
           src,
+          poster,
           alt: thumbImg ? thumbImg.alt : gameTitle,
           title: gameTitle,
           transcriptHtml: ""
@@ -958,7 +1035,9 @@ function collectCardGalleryItems(card) {
   const mainSrc = mainImg ? mainImg.getAttribute("src") : "";
   if (mainImg && mainSrc) {
     items.push({
+      type: MEDIA_TYPE_IMAGE,
       src: mainSrc,
+      poster: "",
       alt: mainImg.alt || gameTitle,
       title: gameTitle,
       transcriptHtml: ""
@@ -987,7 +1066,9 @@ function collectCertificateGalleryItems(certCard) {
     const titleText = getTranslatedText(`certs.${slideKey}`);
     const transcriptHtml = getTranslatedText(`certs.${slideKey}Transcript`);
     items.push({
+      type: MEDIA_TYPE_IMAGE,
       src,
+      poster: "",
       alt: titleText,
       title: titleText,
       transcriptHtml
@@ -1014,15 +1095,34 @@ function renderLightboxTranslation(elements, activeItem) {
   }
 }
 
+function renderLightboxMedia(elements, activeItem) {
+  pauseAndResetVideo(elements.video);
+
+  if (activeItem.type === MEDIA_TYPE_VIDEO) {
+    elements.image.classList.add(HIDDEN_CLASS);
+    if (activeItem.poster) {
+      elements.video.poster = activeItem.poster;
+    }
+    elements.video.src = activeItem.src;
+    elements.video.load();
+    elements.video.classList.remove(HIDDEN_CLASS);
+    return;
+  }
+
+  elements.video.classList.add(HIDDEN_CLASS);
+  elements.image.classList.remove(HIDDEN_CLASS);
+  elements.image.dataset.fallbackIndex = String(FIRST_INDEX);
+  elements.image.src = activeItem.src;
+  elements.image.alt = activeItem.alt;
+}
+
 function renderLightboxSlide(elements, state) {
   const activeItem = state.items[state.currentIndex];
   if (!activeItem) {
     return;
   }
 
-  elements.image.dataset.fallbackIndex = String(FIRST_INDEX);
-  elements.image.src = activeItem.src;
-  elements.image.alt = activeItem.alt;
+  renderLightboxMedia(elements, activeItem);
 
   const hasMultipleSlides = state.items.length >= MIN_GALLERY_COUNT;
   elements.prevBtn.classList.toggle(HIDDEN_CLASS, !hasMultipleSlides);
@@ -1045,10 +1145,9 @@ function openLightboxGallery(elements, state, items, startIndex) {
   elements.root.setAttribute("aria-hidden", "false");
 }
 
-function openCardLightbox(elements, state, card, clickedImage) {
+function openCardLightbox(elements, state, card, clickedSource) {
   const items = collectCardGalleryItems(card);
-  const rawSrc = clickedImage.getAttribute("src") || "";
-  const startIndex = findGalleryIndexBySource(items, rawSrc);
+  const startIndex = findGalleryIndexBySource(items, clickedSource);
   openLightboxGallery(elements, state, items, startIndex);
 }
 
@@ -1070,7 +1169,9 @@ function openCertificateLightbox(elements, state, certCard, clickedImage) {
     state,
     [
       {
+        type: MEDIA_TYPE_IMAGE,
         src: clickedImage.src,
+        poster: "",
         alt: clickedImage.alt,
         title: titleText,
         transcriptHtml
@@ -1084,7 +1185,16 @@ function openSingleImageLightbox(elements, state, clickedImage) {
   openLightboxGallery(
     elements,
     state,
-    [{ src: clickedImage.src, alt: clickedImage.alt, title: "", transcriptHtml: "" }],
+    [
+      {
+        type: MEDIA_TYPE_IMAGE,
+        src: clickedImage.src,
+        poster: "",
+        alt: clickedImage.alt,
+        title: "",
+        transcriptHtml: ""
+      }
+    ],
     FIRST_INDEX
   );
 }
@@ -1099,15 +1209,36 @@ function stepLightboxSlide(elements, state, delta) {
   renderLightboxSlide(elements, state);
 }
 
-function closeLightbox(lightbox) {
-  lightbox.classList.remove(ACTIVE_CLASS);
-  lightbox.setAttribute("aria-hidden", "true");
+function closeLightbox(elements) {
+  pauseAndResetVideo(elements.video);
+  elements.root.classList.remove(ACTIVE_CLASS);
+  elements.root.setAttribute("aria-hidden", "true");
+}
+
+function bindCardVideoExpandButtons(elements, state) {
+  const expandButtons = document.querySelectorAll(VIDEO_EXPAND_SELECTOR);
+
+  expandButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const parentGameCard = button.closest(GAME_CARD_SELECTOR);
+      if (!parentGameCard) {
+        return;
+      }
+
+      const inlineVideo = parentGameCard.querySelector(".main-video-preview");
+      const rawSource = inlineVideo ? inlineVideo.getAttribute("src") || "" : "";
+      pauseAndResetVideo(inlineVideo);
+      openCardLightbox(elements, state, parentGameCard, rawSource);
+    });
+  });
 }
 
 function initLightbox() {
   const root = document.getElementById("lightbox");
   const stage = root ? root.querySelector(".lightbox-stage") : null;
   const image = document.getElementById("lightboxImage");
+  const video = document.getElementById("lightboxVideo");
   const closeBtn = document.getElementById("lightboxClose");
   const prevBtn = document.getElementById("lightboxPrev");
   const nextBtn = document.getElementById("lightboxNext");
@@ -1123,6 +1254,7 @@ function initLightbox() {
     !root ||
     !stage ||
     !image ||
+    !video ||
     !closeBtn ||
     !prevBtn ||
     !nextBtn ||
@@ -1140,6 +1272,7 @@ function initLightbox() {
     root,
     stage,
     image,
+    video,
     prevBtn,
     nextBtn,
     caption,
@@ -1153,22 +1286,37 @@ function initLightbox() {
   let touchStartX = MIN_RATIO;
 
   previewImages.forEach((img) => {
-    img.addEventListener("click", () => {
+    img.addEventListener("click", (event) => {
       const parentGameCard = img.closest(GAME_CARD_SELECTOR);
       if (parentGameCard) {
-        openCardLightbox(elements, state, parentGameCard, img);
+        event.stopPropagation();
+        const rawSrc = img.getAttribute("src") || "";
+        openCardLightbox(elements, state, parentGameCard, rawSrc);
         return;
       }
 
       const parentCertCard = img.closest(CERT_CARD_SELECTOR);
       if (parentCertCard) {
+        event.stopPropagation();
         openCertificateLightbox(elements, state, parentCertCard, img);
         return;
       }
 
+      event.stopPropagation();
       openSingleImageLightbox(elements, state, img);
     });
   });
+
+  document.querySelectorAll(CERT_CARD_SELECTOR).forEach((certCard) => {
+    certCard.addEventListener("click", () => {
+      const mainImg = certCard.querySelector(".cert-main-preview");
+      if (mainImg) {
+        openCertificateLightbox(elements, state, certCard, mainImg);
+      }
+    });
+  });
+
+  bindCardVideoExpandButtons(elements, state);
 
   prevBtn.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -1181,12 +1329,12 @@ function initLightbox() {
   });
 
   closeBtn.addEventListener("click", () => {
-    closeLightbox(root);
+    closeLightbox(elements);
   });
 
   root.addEventListener("click", (event) => {
     if (event.target === root) {
-      closeLightbox(root);
+      closeLightbox(elements);
     }
   });
 
@@ -1220,7 +1368,7 @@ function initLightbox() {
     }
 
     if (event.key === ESCAPE_KEY) {
-      closeLightbox(root);
+      closeLightbox(elements);
     } else if (event.key === ARROW_RIGHT_KEY) {
       stepLightboxSlide(elements, state, INDEX_STEP);
     } else if (event.key === ARROW_LEFT_KEY) {
