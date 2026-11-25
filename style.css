@@ -1511,3 +1511,45 @@ html {
 .lightbox-translation::-webkit-scrollbar-thumb:hover {
   background: #8b5cf6;
 }
+
+.cert-main-preview {
+  transition: opacity 0.16s ease, transform 0.25s ease;
+}
+
+.cert-main-preview.switching {
+  opacity: 0;
+}
+
+.cert-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem 0;
+}
+
+.cert-tab-btn {
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #a1a1aa;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cert-tab-btn:hover {
+  color: #f4f4f6;
+  border-color: rgba(139, 92, 246, 0.45);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.cert-tab-btn.active {
+  color: #f4f4f6;
+  background: rgba(139, 92, 246, 0.18);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.2);
+}

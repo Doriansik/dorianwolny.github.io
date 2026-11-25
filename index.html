@@ -112,7 +112,7 @@
     <section id="about" class="section section-alt">
       <div class="container" data-reveal>
         <p class="section-index" data-i18n="about.index">02 / ABOUT</p>
-        <h2 data-i18n-html="about.heading">About Me<span class="accent-dot">.</span></h2>
+        <h2 data-i18n-html="about.heading">Behind the code<span class="accent-dot">.</span></h2>
         <p class="section-text" data-i18n="about.text">
           I am a Game Development student who has been creating games on and off for around eight years. What drives me most in programming is seeing complex systems come together and actually work on screen. I particularly enjoy working with numbers, game balance, and modular data-driven architectures built around Unity's ScriptableObjects.
         </p>
@@ -122,9 +122,10 @@
     <section id="skills" class="section">
       <div class="container">
         <p class="section-index" data-reveal data-i18n="skills.index">03 / TOOLKIT &amp; SKILLS</p>
+        <h2 data-reveal data-i18n-html="skills.heading">How I build games<span class="accent-dot">.</span></h2>
         <div class="skills-split">
           <div class="skills-column">
-            <h2 data-reveal data-i18n-html="skills.toolsHeading">Software &amp; Tools<span class="accent-dot">.</span></h2>
+            <h3 data-reveal data-i18n="skills.toolsHeading">Engine &amp; Software</h3>
             <div class="tools-grid" data-reveal-stagger>
               <div class="tool-item" data-reveal>
                 <span class="tool-icon tool-unity" aria-hidden="true">
@@ -184,7 +185,7 @@
           </div>
 
           <div class="skills-column">
-            <h2 data-reveal data-i18n-html="skills.skillsHeading">Skills<span class="accent-dot">.</span></h2>
+            <h3 data-reveal data-i18n="skills.skillsHeading">Core Competencies</h3>
             <div class="competencies-grid" data-reveal-stagger>
               <div class="competency-item" data-reveal>
                 <span class="competency-icon" aria-hidden="true">
@@ -265,7 +266,7 @@
     <section id="games" class="section section-alt">
       <div class="container">
         <p class="section-index" data-reveal data-i18n="games.index">04 / FEATURED WORK</p>
-        <h2 data-reveal data-i18n-html="games.heading">Featured Games<span class="accent-dot">.</span></h2>
+        <h2 data-reveal data-i18n-html="games.heading">Games I've built<span class="accent-dot">.</span></h2>
         <div class="games-grid" data-reveal-stagger>
 
           <article class="game-card" data-reveal data-tilt data-tilt-max="4">
@@ -412,22 +413,26 @@
     <section id="certifications" class="section">
       <div class="container">
         <p class="section-index" data-reveal data-i18n="certs.index">05 / CERTIFICATIONS</p>
-        <h2 data-reveal data-i18n-html="certs.heading">Certifications<span class="accent-dot">.</span></h2>
+        <h2 data-reveal data-i18n-html="certs.heading">Awards &amp; milestones<span class="accent-dot">.</span></h2>
         <div class="certs-grid" data-reveal-stagger>
 
-          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="cyberiadaPart">
+          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-group="cyberiada">
             <div class="cert-preview">
-              <img src="Images/Dorian Wolny - 3Pieczarki's.png" data-fallback-exts="jpg,jpeg,webp,JPG,JPEG,PNG,jfif" alt="Cyberiada Participation Certificate" data-lightbox>
+              <img src="Images/Dorian Wolny - 3Pieczarki's.png" data-fallback-exts="jpg,jpeg,webp,JPG,JPEG,PNG,jfif" alt="Cyberiada Individual Winner Certificate" class="cert-main-preview" data-lightbox>
+            </div>
+            <div class="cert-tabs" role="tablist" aria-label="Cyberiada certificates">
+              <button type="button" class="cert-tab-btn active" role="tab" aria-selected="true" data-cert-slide="cyberiadaIndividual" data-src="Images/Dorian Wolny - 3Pieczarki's.png" data-i18n="certs.tabIndividual">Individual</button>
+              <button type="button" class="cert-tab-btn" role="tab" aria-selected="false" data-cert-slide="cyberiadaTeam" data-src="Images/Zwyciezca - 3Pieczarki's.png" data-i18n="certs.tabTeam">Team</button>
             </div>
             <div class="cert-body">
               <div class="cert-meta">
                 <span class="cert-issuer">Fundacja TEATRIKON</span>
                 <span class="cert-year">2026</span>
               </div>
-              <h3 data-i18n="certs.cyberiadaPart">Cyberiada &mdash; Participation Certificate</h3>
+              <h3 class="cert-title" data-i18n="certs.cyberiadaIndividual">Cyberiada &mdash; Individual Winner Certificate</h3>
               <div class="cert-translation">
                 <span class="cert-translation-badge">EN TRANSLATION</span>
-                <div class="cert-translation-text" data-i18n-html="certs.cyberiadaPartTranscript">
+                <div class="cert-translation-text" data-i18n-html="certs.cyberiadaIndividualTranscript">
                   <p>This document certifies that <strong>Dorian Wolny</strong> participated in the competition and specialized video game development training, as well as the finals of the National Computer Game Design Championships <strong>&ldquo;Cyberiada&rdquo;</strong>, organized by the &ldquo;Teatrikon&rdquo; Foundation for Creativity, Education and Animation of Youth under the IT Talent Development Program for 2019&ndash;2029, funded by the state budget.</p>
                   <p>40 teams from across Poland qualified for the project, tasked with creating a prototype of an original game.</p>
                   <p><strong>Team:</strong> 3Pieczarki's &middot; <strong>Track:</strong> Game Development &middot; <strong>Classification:</strong> Winner &middot; <strong>Score:</strong> 1st place &ndash; 858.8 pts</p>
@@ -437,39 +442,20 @@
             </div>
           </article>
 
-          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="cyberiadaWin">
+          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-group="cdv">
             <div class="cert-preview">
-              <img src="Images/Zwyciezca - 3Pieczarki's.png" data-fallback-exts="jpg,jpeg,webp,JPG,JPEG,PNG,jfif" alt="Cyberiada Winner Certificate" data-lightbox>
+              <img src="Images/CertyfikatAkceleratorprzod.png" data-fallback-exts="jpg,jpeg,webp,JPG,JPEG,PNG,jfif" alt="CDV Accelerator Certificate Front" class="cert-main-preview" data-lightbox>
             </div>
-            <div class="cert-body">
-              <div class="cert-meta">
-                <span class="cert-issuer">Fundacja TEATRIKON</span>
-                <span class="cert-year">2026</span>
-              </div>
-              <h3 data-i18n="certs.cyberiadaWin">Cyberiada &mdash; Winner Certificate</h3>
-              <div class="cert-translation">
-                <span class="cert-translation-badge">EN TRANSLATION</span>
-                <div class="cert-translation-text" data-i18n-html="certs.cyberiadaWinTranscript">
-                  <p><strong>Winner &mdash; Baza Kraśnali &bull; 3Pieczarki's (Game: Rustcrave)</strong></p>
-                  <p>This document certifies the team's participation in the competition and specialized video game development training, as well as the finals of the National Computer Game Design Championships <strong>&ldquo;Cyberiada&rdquo;</strong>, organized by the &ldquo;Teatrikon&rdquo; Foundation for Creativity, Education and Animation of Youth under the IT Talent Development Program for 2019&ndash;2029, funded by the state budget.</p>
-                  <p><strong>National Ranking:</strong> 1st place &middot; <strong>Score:</strong> 858.8 pts &middot; <strong>Base Ranking:</strong> 1st place</p>
-                  <p><strong>Dorian Wolny's Role:</strong> Game Development (10-person team: Project Management, Game Design, Game Development, Experience Design, Quality Assurance)</p>
-                  <p class="cert-translation-meta">Lublin, July 11, 2026</p>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="cdvFront">
-            <div class="cert-preview">
-              <img src="Images/CertyfikatAkceleratorprzod.png" data-fallback-exts="jpg,jpeg,webp,JPG,JPEG,PNG,jfif" alt="CDV Accelerator Certificate Front" data-lightbox>
+            <div class="cert-tabs" role="tablist" aria-label="CDV Accelerator certificate sides">
+              <button type="button" class="cert-tab-btn active" role="tab" aria-selected="true" data-cert-slide="cdvFront" data-src="Images/CertyfikatAkceleratorprzod.png" data-i18n="certs.tabFront">Front</button>
+              <button type="button" class="cert-tab-btn" role="tab" aria-selected="false" data-cert-slide="cdvBack" data-src="Images/CertyfikatAkceleratotyl.png" data-i18n="certs.tabBack">Back</button>
             </div>
             <div class="cert-body">
               <div class="cert-meta">
                 <span class="cert-issuer">Collegium Da Vinci</span>
                 <span class="cert-year">2025</span>
               </div>
-              <h3 data-i18n="certs.cdvFront">CDV Accelerator Certificate (Front)</h3>
+              <h3 class="cert-title" data-i18n="certs.cdvFront">CDV Accelerator Certificate (Front)</h3>
               <div class="cert-translation">
                 <span class="cert-translation-badge">EN TRANSLATION</span>
                 <div class="cert-translation-text" data-i18n-html="certs.cdvFrontTranscript">
@@ -480,49 +466,16 @@
             </div>
           </article>
 
-          <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="cdvBack">
-            <div class="cert-preview">
-              <img src="Images/CertyfikatAkceleratotyl.png" data-fallback-exts="jpg,jpeg,webp,JPG,JPEG,PNG,jfif" alt="CDV Accelerator Certificate Back" data-lightbox>
-            </div>
-            <div class="cert-body">
-              <div class="cert-meta">
-                <span class="cert-issuer">Collegium Da Vinci</span>
-                <span class="cert-year">2025</span>
-              </div>
-              <h3 data-i18n="certs.cdvBack">CDV Accelerator Certificate (Back)</h3>
-              <div class="cert-translation">
-                <span class="cert-translation-badge">EN TRANSLATION</span>
-                <div class="cert-translation-text" data-i18n-html="certs.cdvBackTranscript">
-                  <p><strong>Program (24 hours):</strong></p>
-                  <ul>
-                    <li>Fundamentals of startup organization</li>
-                    <li>Business Model Canvas</li>
-                    <li>Game improvements in terms of design</li>
-                    <li>Business relations</li>
-                    <li>Intellectual property</li>
-                    <li>Game improvements in terms of technical and production aspects</li>
-                    <li>Startup financing</li>
-                    <li>Product and service design</li>
-                    <li>Technological leverage</li>
-                    <li>Game improvements in terms of graphics</li>
-                    <li>Team Building</li>
-                    <li>Marketing and brand building</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </article>
-
           <article class="cert-card" data-reveal data-tilt data-tilt-max="4" data-cert-key="profilLingua">
             <div class="cert-preview">
-              <img src="Images/CertyfikatAngielski.png" data-fallback-exts="jpg,jpeg,webp,JPG,JPEG,PNG,jfif" alt="ProfiLingua Language Certificate" data-lightbox>
+              <img src="Images/CertyfikatAngielski.png" data-fallback-exts="jpg,jpeg,webp,JPG,JPEG,PNG,jfif" alt="ProfiLingua Language Certificate" class="cert-main-preview" data-lightbox>
             </div>
             <div class="cert-body">
               <div class="cert-meta">
                 <span class="cert-issuer">ProfiLingua</span>
                 <span class="cert-year">2026</span>
               </div>
-              <h3 data-i18n="certs.profilLingua">ProfiLingua Language Certificate</h3>
+              <h3 class="cert-title" data-i18n="certs.profilLingua">ProfiLingua Language Certificate</h3>
               <div class="cert-translation">
                 <span class="cert-translation-badge">EN TRANSLATION</span>
                 <div class="cert-translation-text" data-i18n-html="certs.profilLinguaTranscript">
@@ -575,7 +528,7 @@
     <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
     <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#10094;</button>
     <div class="lightbox-stage">
-      <img src="" alt="Expanded preview" id="lightboxImage">
+      <img src="" alt="Expanded preview" id="lightboxImage" data-fallback-exts="jpg,jpeg,webp,JPG,JPEG,PNG,jfif">
       <div class="lightbox-caption" id="lightboxCaption">
         <span id="lightboxTitle"></span>
         <span class="lightbox-counter" id="lightboxCounter"></span>

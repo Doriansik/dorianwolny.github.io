@@ -49,6 +49,7 @@ const INTERACTIVE_SELECTOR = "a, button, label, input, .thumb-btn";
 const ZOOM_SELECTOR = "[data-lightbox]";
 const GAME_CARD_SELECTOR = "#games .game-card";
 const CERT_CARD_SELECTOR = "#certifications .cert-card";
+const CERT_TAB_SELECTOR = ".cert-tab-btn";
 
 const PARTICLE_COUNT = 38;
 const PARTICLE_MIN_RADIUS = 1.1;
@@ -92,11 +93,12 @@ const TRANSLATIONS = {
     "inspector.statusReady": "Ready to Build",
     "inspector.statusPaused": "Component Disabled",
     "about.index": "02 / ABOUT",
-    "about.heading": "About Me<span class=\"accent-dot\">.</span>",
+    "about.heading": "Behind the code<span class=\"accent-dot\">.</span>",
     "about.text": "I am a Game Development student who has been creating games on and off for around eight years. What drives me most in programming is seeing complex systems come together and actually work on screen. I particularly enjoy working with numbers, game balance, and modular data-driven architectures built around Unity's ScriptableObjects.",
     "skills.index": "03 / TOOLKIT & SKILLS",
-    "skills.toolsHeading": "Software &amp; Tools<span class=\"accent-dot\">.</span>",
-    "skills.skillsHeading": "Skills<span class=\"accent-dot\">.</span>",
+    "skills.heading": "How I build games<span class=\"accent-dot\">.</span>",
+    "skills.toolsHeading": "Engine & Software",
+    "skills.skillsHeading": "Core Competencies",
     "skills.gameplay": "Gameplay & Combat Systems",
     "skills.solid": "SOLID Principles & Clean Architecture",
     "skills.so": "ScriptableObjects & Data-Driven Design",
@@ -104,7 +106,7 @@ const TRANSLATIONS = {
     "skills.balance": "Game Balance & Numerical Systems",
     "skills.ui": "Dialogue, Event & UI Frameworks",
     "games.index": "04 / FEATURED WORK",
-    "games.heading": "Featured Games<span class=\"accent-dot\">.</span>",
+    "games.heading": "Games I've built<span class=\"accent-dot\">.</span>",
     "games.playItch": "Play on Itch.io \u2197",
     "games.watchGameplay": "Watch Gameplay \u2197",
     "games.githubCode": "GitHub Code \u2197",
@@ -120,11 +122,15 @@ const TRANSLATIONS = {
     "games.dziady.desc": "A 2D deckbuilding roguelite inspired by Slavic folklore and the <em>Dziady</em> ritual. Playing as the Gu\u015blarz, you summon spirits like a young girl seeking the bitterness she never experienced in life, traversing a map of Slavic demons, witches, healers, and narrative encounters before confronting an overprotective mother boss.",
     "games.dziady.role": "<strong>My Role:</strong> Architected the card and deck system, dialogue and event framework, combat encounters (standard, elite, and boss), and in-game battle UI.",
     "certs.index": "05 / CERTIFICATIONS",
-    "certs.heading": "Certifications<span class=\"accent-dot\">.</span>",
-    "certs.cyberiadaPart": "Cyberiada \u2014 Participation Certificate",
-    "certs.cyberiadaPartTranscript": "<p>This document certifies that <strong>Dorian Wolny</strong> participated in the competition and specialized video game development training, as well as the finals of the National Computer Game Design Championships <strong>&ldquo;Cyberiada&rdquo;</strong>, organized by the &ldquo;Teatrikon&rdquo; Foundation for Creativity, Education and Animation of Youth under the IT Talent Development Program for 2019&ndash;2029, funded by the state budget.</p><p>40 teams from across Poland qualified for the project, tasked with creating a prototype of an original game.</p><p><strong>Team:</strong> 3Pieczarki's &middot; <strong>Track:</strong> Game Development &middot; <strong>Classification:</strong> Winner &middot; <strong>Score:</strong> 1st place &ndash; 858.8 pts</p><p class=\"cert-translation-meta\">Lublin, July 11, 2026</p>",
-    "certs.cyberiadaWin": "Cyberiada \u2014 Winner Certificate",
-    "certs.cyberiadaWinTranscript": "<p><strong>Winner &mdash; Baza Kra\u015bnali &bull; 3Pieczarki's (Game: Rustcrave)</strong></p><p>This document certifies the team's participation in the competition and specialized video game development training, as well as the finals of the National Computer Game Design Championships <strong>&ldquo;Cyberiada&rdquo;</strong>, organized by the &ldquo;Teatrikon&rdquo; Foundation for Creativity, Education and Animation of Youth under the IT Talent Development Program for 2019&ndash;2029, funded by the state budget.</p><p><strong>National Ranking:</strong> 1st place &middot; <strong>Score:</strong> 858.8 pts &middot; <strong>Base Ranking:</strong> 1st place</p><p><strong>Dorian Wolny's Role:</strong> Game Development (10-person team: Project Management, Game Design, Game Development, Experience Design, Quality Assurance)</p><p class=\"cert-translation-meta\">Lublin, July 11, 2026</p>",
+    "certs.heading": "Awards & milestones<span class=\"accent-dot\">.</span>",
+    "certs.tabIndividual": "Individual",
+    "certs.tabTeam": "Team",
+    "certs.tabFront": "Front",
+    "certs.tabBack": "Back",
+    "certs.cyberiadaIndividual": "Cyberiada \u2014 Individual Winner Certificate",
+    "certs.cyberiadaIndividualTranscript": "<p>This document certifies that <strong>Dorian Wolny</strong> participated in the competition and specialized video game development training, as well as the finals of the National Computer Game Design Championships <strong>&ldquo;Cyberiada&rdquo;</strong>, organized by the &ldquo;Teatrikon&rdquo; Foundation for Creativity, Education and Animation of Youth under the IT Talent Development Program for 2019&ndash;2029, funded by the state budget.</p><p>40 teams from across Poland qualified for the project, tasked with creating a prototype of an original game.</p><p><strong>Team:</strong> 3Pieczarki's &middot; <strong>Track:</strong> Game Development &middot; <strong>Classification:</strong> Winner &middot; <strong>Score:</strong> 1st place &ndash; 858.8 pts</p><p class=\"cert-translation-meta\">Lublin, July 11, 2026</p>",
+    "certs.cyberiadaTeam": "Cyberiada \u2014 Team Winner Certificate",
+    "certs.cyberiadaTeamTranscript": "<p><strong>Winner &mdash; Baza Kra\u015bnali &bull; 3Pieczarki's (Game: Rustcrave)</strong></p><p>This document certifies the team's participation in the competition and specialized video game development training, as well as the finals of the National Computer Game Design Championships <strong>&ldquo;Cyberiada&rdquo;</strong>, organized by the &ldquo;Teatrikon&rdquo; Foundation for Creativity, Education and Animation of Youth under the IT Talent Development Program for 2019&ndash;2029, funded by the state budget.</p><p><strong>National Ranking:</strong> 1st place &middot; <strong>Score:</strong> 858.8 pts &middot; <strong>Base Ranking:</strong> 1st place</p><p><strong>Dorian Wolny's Role:</strong> Game Development (10-person team: Project Management, Game Design, Game Development, Experience Design, Quality Assurance)</p><p class=\"cert-translation-meta\">Lublin, July 11, 2026</p>",
     "certs.cdvFront": "CDV Accelerator Certificate (Front)",
     "certs.cdvFrontTranscript": "<p><strong>Certificate:</strong> <strong>Dorian Wolny</strong> completed the acceleration program <strong>CDV Accelerator</strong>, organized from May 15 to June 30, 2025.</p><p class=\"cert-translation-meta\">Organizer: Collegium Da Vinci (CDV)</p>",
     "certs.cdvBack": "CDV Accelerator Certificate (Back)",
@@ -163,11 +169,12 @@ const TRANSLATIONS = {
     "inspector.statusReady": "Gotowy do pracy",
     "inspector.statusPaused": "Komponent wy\u0142\u0105czony",
     "about.index": "02 / O MNIE",
-    "about.heading": "O mnie<span class=\"accent-dot\">.</span>",
+    "about.heading": "Poznajmy si\u0119 bli\u017cej<span class=\"accent-dot\">.</span>",
     "about.text": "Jestem studentem Game Developmentu, kt\u00f3ry z przerwami tworzy gry od oko\u0142o o\u015bmiu lat. W programowaniu najbardziej nap\u0119dza mnie moment, w kt\u00f3rym z\u0142o\u017cone systemy zaczynaj\u0105 ze sob\u0105 wsp\u00f3\u0142gra\u0107 i dzia\u0142a\u0107 na ekranie. Szczeg\u00f3lnie lubi\u0119 prac\u0119 z liczbami, balansem rozgrywki oraz modularn\u0105 architektur\u0105 opart\u0105 na danych z wykorzystaniem ScriptableObjects w Unity.",
     "skills.index": "03 / NARZ\u0118DZIA I UMIEJ\u0118TNO\u015aCI",
-    "skills.toolsHeading": "Oprogramowanie i narz\u0119dzia<span class=\"accent-dot\">.</span>",
-    "skills.skillsHeading": "Umiej\u0119tno\u015bci<span class=\"accent-dot\">.</span>",
+    "skills.heading": "Jak tworz\u0119 gry<span class=\"accent-dot\">.</span>",
+    "skills.toolsHeading": "Silnik i oprogramowanie",
+    "skills.skillsHeading": "Kluczowe kompetencje",
     "skills.gameplay": "Systemy rozgrywki i walki",
     "skills.solid": "Zasady SOLID i czysta architektura",
     "skills.so": "ScriptableObjects i projektowanie oparte na danych",
@@ -175,7 +182,7 @@ const TRANSLATIONS = {
     "skills.balance": "Balans gry i systemy liczbowe",
     "skills.ui": "Systemy dialog\u00f3w, zdarze\u0144 i interfejsu UI",
     "games.index": "04 / WYBRANE PROJEKTY",
-    "games.heading": "Wybrane gry<span class=\"accent-dot\">.</span>",
+    "games.heading": "Gry, kt\u00f3re stworzy\u0142em<span class=\"accent-dot\">.</span>",
     "games.playItch": "Zagraj na Itch.io \u2197",
     "games.watchGameplay": "Zobacz rozgrywk\u0119 \u2197",
     "games.githubCode": "Kod na GitHubie \u2197",
@@ -191,11 +198,15 @@ const TRANSLATIONS = {
     "games.dziady.desc": "Dwuwymiarowy roguelite typu deckbuilder inspirowany s\u0142owia\u0144skim folklorem oraz obrz\u0119dem <em>Dziad\u00f3w</em>. Wcielaj\u0105c si\u0119 w Gu\u015blarza, przywo\u0142ujesz duchy \u2014 takie jak dziewczyna pragn\u0105ca zazna\u0107 goryczy, kt\u00f3rej nie do\u015bwiadczy\u0142a za \u017cycia \u2014 przemierzaj\u0105c map\u0119 pe\u0142n\u0105 s\u0142owia\u0144skich demon\u00f3w, wied\u017am, szeptuch i wydarze\u0144 fabularnych przed starciem z nadopieku\u0144cz\u0105 matk\u0105 jako bossem.",
     "games.dziady.role": "<strong>Moja rola:</strong> Zaprojektowanie architektury systemu kart i talii, frameworku dialog\u00f3w i zdarze\u0144, star\u0107 bojowych (zwyk\u0142ych, elitarnych oraz z bossem) oraz interfejsu walki.",
     "certs.index": "05 / CERTYFIKATY",
-    "certs.heading": "Certyfikaty<span class=\"accent-dot\">.</span>",
-    "certs.cyberiadaPart": "Cyberiada \u2014 Certyfikat uczestnictwa",
-    "certs.cyberiadaPartTranscript": "",
-    "certs.cyberiadaWin": "Cyberiada \u2014 Certyfikat zwyci\u0119zcy",
-    "certs.cyberiadaWinTranscript": "",
+    "certs.heading": "Osi\u0105gni\u0119cia i wyr\u00f3\u017cnienia<span class=\"accent-dot\">.</span>",
+    "certs.tabIndividual": "Imienny",
+    "certs.tabTeam": "Dru\u017cynowy",
+    "certs.tabFront": "Prz\u00f3d",
+    "certs.tabBack": "Ty\u0142",
+    "certs.cyberiadaIndividual": "Cyberiada \u2014 Imienny certyfikat zwyci\u0119zcy",
+    "certs.cyberiadaIndividualTranscript": "",
+    "certs.cyberiadaTeam": "Cyberiada \u2014 Dru\u017cynowy certyfikat zwyci\u0119zcy",
+    "certs.cyberiadaTeamTranscript": "",
     "certs.cdvFront": "Certyfikat Akceleratora CDV (Prz\u00f3d)",
     "certs.cdvFrontTranscript": "",
     "certs.cdvBack": "Certyfikat Akceleratora CDV (Ty\u0142)",
@@ -824,6 +835,7 @@ function swapPreviewImage(mainImage, newSource) {
   mainImage.classList.add(SWITCHING_CLASS);
 
   window.setTimeout(() => {
+    mainImage.dataset.fallbackIndex = String(FIRST_INDEX);
     mainImage.src = newSource;
     mainImage.classList.remove(SWITCHING_CLASS);
   }, IMAGE_FADE_MS);
@@ -851,12 +863,71 @@ function handleThumbnailClick(button, cardElement) {
 }
 
 function initGallerySwitchers() {
-  const gameCards = document.querySelectorAll(".game-card");
+  const gameCards = document.querySelectorAll(GAME_CARD_SELECTOR);
 
   gameCards.forEach((card) => {
     const thumbButtons = card.querySelectorAll(".thumb-btn");
     thumbButtons.forEach((button) => {
       button.addEventListener("click", () => handleThumbnailClick(button, card));
+    });
+  });
+}
+
+function updateCertificateCardContent(cardElement, slideKey) {
+  const titleKey = `certs.${slideKey}`;
+  const transcriptKey = `certs.${slideKey}Transcript`;
+  const titleElement = cardElement.querySelector(".cert-title");
+  const transcriptElement = cardElement.querySelector(".cert-translation-text");
+
+  if (titleElement) {
+    titleElement.setAttribute("data-i18n", titleKey);
+    titleElement.textContent = getTranslatedText(titleKey);
+  }
+
+  if (transcriptElement) {
+    transcriptElement.setAttribute("data-i18n-html", transcriptKey);
+    transcriptElement.innerHTML = getTranslatedText(transcriptKey);
+  }
+}
+
+function updateCertificateTabStates(tabButtons, activeButton) {
+  tabButtons.forEach((tab) => {
+    const isSelected = tab === activeButton;
+    tab.classList.toggle(ACTIVE_CLASS, isSelected);
+    tab.setAttribute("aria-selected", String(isSelected));
+  });
+}
+
+function handleCertificateTabClick(button, cardElement) {
+  if (button.classList.contains(ACTIVE_CLASS)) {
+    return;
+  }
+
+  const mainImage = cardElement.querySelector(".cert-main-preview");
+  const newSource = button.getAttribute("data-src");
+  const slideKey = button.getAttribute("data-cert-slide");
+
+  if (!mainImage || !newSource || !slideKey) {
+    return;
+  }
+
+  const titleText = getTranslatedText(`certs.${slideKey}`);
+  if (titleText) {
+    mainImage.alt = titleText;
+  }
+
+  swapPreviewImage(mainImage, newSource);
+  updateCertificateCardContent(cardElement, slideKey);
+  updateCertificateTabStates(cardElement.querySelectorAll(CERT_TAB_SELECTOR), button);
+}
+
+function initCertificateSwitchers() {
+  const certCards = document.querySelectorAll(CERT_CARD_SELECTOR);
+
+  certCards.forEach((card) => {
+    const tabButtons = card.querySelectorAll(CERT_TAB_SELECTOR);
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => handleCertificateTabClick(button, card));
     });
   });
 }
@@ -902,6 +973,36 @@ function findGalleryIndexBySource(items, source) {
   return matchedIndex !== NOT_FOUND_INDEX ? matchedIndex : FIRST_INDEX;
 }
 
+function collectCertificateGalleryItems(certCard) {
+  const items = [];
+  const tabButtons = certCard.querySelectorAll(CERT_TAB_SELECTOR);
+
+  tabButtons.forEach((button) => {
+    const src = button.getAttribute("data-src");
+    const slideKey = button.getAttribute("data-cert-slide");
+    if (!src || !slideKey) {
+      return;
+    }
+
+    const titleText = getTranslatedText(`certs.${slideKey}`);
+    const transcriptHtml = getTranslatedText(`certs.${slideKey}Transcript`);
+    items.push({
+      src,
+      alt: titleText,
+      title: titleText,
+      transcriptHtml
+    });
+  });
+
+  return items;
+}
+
+function findActiveCertificateTabIndex(tabButtons) {
+  const buttonsList = Array.from(tabButtons);
+  const activeIndex = buttonsList.findIndex((btn) => btn.classList.contains(ACTIVE_CLASS));
+  return activeIndex !== NOT_FOUND_INDEX ? activeIndex : FIRST_INDEX;
+}
+
 function renderLightboxTranslation(elements, activeItem) {
   const shouldShowTranslation = Boolean(activeItem.transcriptHtml) && currentLanguage === DEFAULT_LANG;
   elements.stage.classList.toggle(HAS_TRANSLATION_CLASS, shouldShowTranslation);
@@ -919,6 +1020,7 @@ function renderLightboxSlide(elements, state) {
     return;
   }
 
+  elements.image.dataset.fallbackIndex = String(FIRST_INDEX);
   elements.image.src = activeItem.src;
   elements.image.alt = activeItem.alt;
 
@@ -951,6 +1053,14 @@ function openCardLightbox(elements, state, card, clickedImage) {
 }
 
 function openCertificateLightbox(elements, state, certCard, clickedImage) {
+  const tabButtons = certCard.querySelectorAll(CERT_TAB_SELECTOR);
+  if (tabButtons.length) {
+    const items = collectCertificateGalleryItems(certCard);
+    const startIndex = findActiveCertificateTabIndex(tabButtons);
+    openLightboxGallery(elements, state, items, startIndex);
+    return;
+  }
+
   const certKey = certCard.getAttribute("data-cert-key") || "";
   const titleText = certKey ? getTranslatedText(`certs.${certKey}`) : clickedImage.alt;
   const transcriptHtml = certKey ? getTranslatedText(`certs.${certKey}Transcript`) : "";
@@ -1132,6 +1242,7 @@ function initApp() {
   initCopyEmail();
   initImageFallback();
   initGallerySwitchers();
+  initCertificateSwitchers();
   initLightbox();
 }
 
