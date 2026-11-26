@@ -15,6 +15,8 @@ const CURSOR_CLICK_CLASS = "clicking";
 const ESCAPE_KEY = "Escape";
 const ARROW_LEFT_KEY = "ArrowLeft";
 const ARROW_RIGHT_KEY = "ArrowRight";
+const CV_PATH_EN = "Images/Dorian%20Wolny%20CV%20eng.pdf";
+const CV_PATH_PL = "Images/Dorian%20Wolny%20CV.pdf";
 
 const MEDIA_TYPE_IMAGE = "image";
 const MEDIA_TYPE_VIDEO = "video";
@@ -86,6 +88,7 @@ const TRANSLATIONS = {
     "hero.description": "I'm an indie game developer working in <strong>Unity</strong> with <strong>C#</strong>. I'm passionate about gameplay programming, <strong>ScriptableObjects</strong> architecture, and technology.",
     "hero.ctaGames": "View My Games \u2192",
     "hero.ctaContact": "Get in Touch",
+    "hero.ctaCv": "View CV \u2197",
     "inspector.script": "Script",
     "inspector.engine": "Engine",
     "inspector.language": "Language",
@@ -162,6 +165,7 @@ const TRANSLATIONS = {
     "hero.description": "Jestem niezale\u017cnym tw\u00f3rc\u0105 gier pracuj\u0105cym w silniku <strong>Unity</strong> oraz j\u0119zyku <strong>C#</strong>. Pasjonuj\u0119 si\u0119 programowaniem rozgrywki, architektur\u0105 opart\u0105 na <strong>ScriptableObjects</strong> oraz nowoczesnymi technologiami.",
     "hero.ctaGames": "Zobacz moje gry \u2192",
     "hero.ctaContact": "Skontaktuj si\u0119",
+    "hero.ctaCv": "Zobacz CV \u2197",
     "inspector.script": "Skrypt",
     "inspector.engine": "Silnik",
     "inspector.language": "J\u0119zyk",
@@ -310,6 +314,11 @@ function syncDynamicTranslatedElements() {
   if (copyButton && copyLabel) {
     const copyKey = copyButton.classList.contains(COPIED_CLASS) ? "contact.copySuccess" : "contact.copyDefault";
     copyLabel.textContent = getTranslatedText(copyKey);
+  }
+
+  const heroCvLink = document.getElementById("heroCvLink");
+  if (heroCvLink) {
+    heroCvLink.href = currentLanguage === DEFAULT_LANG ? CV_PATH_EN : CV_PATH_PL;
   }
 }
 
